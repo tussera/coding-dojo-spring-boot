@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:db;DB_CLOSE_DELAY=-1
+    username: sa
+    password: sa
+
+weather:
+  api:
+    url: "http://test/weather?q={city}&appid={appid}"
+    token: "myToken"
+  cache:
+    expireAfterWriteInSeconds: 1

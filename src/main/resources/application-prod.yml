@@ -1,0 +1,25 @@
+logging:
+  level:
+    root: ERROR
+    org.springframework: INFO
+    org.hibernate: ERROR
+    com.assignment.spring: INFO
+
+spring:
+  datasource:
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        temp:
+          use_jdbc_metadata_defaults: false
+
+weather:
+  api:
+    url: "http://api.openweathermap.org/data/2.5/weather?q={city}&appid={appid}"
+    token: ${WEATHER_API_TOKEN}
+  cache:
+    expireAfterWriteInSeconds: 10
