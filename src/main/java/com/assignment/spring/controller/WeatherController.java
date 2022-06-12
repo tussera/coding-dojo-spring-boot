@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.constraints.NotNull;
 
 @RestController
-@RequestMapping("/api/weather")
+@RequestMapping("/api/v1/weather")
 public class WeatherController {
 
     private WeatherService weatherService;

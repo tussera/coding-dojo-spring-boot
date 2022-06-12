@@ -1,22 +1,57 @@
-Spring Boot Coding Dojo
----
+# Weather API
 
-Welcome to the Spring Boot Coding Dojo!
+### Reference Documentation :book:
 
-### Introduction
+The API fetches weather info for a given city using [OpenWeather](https://openweathermap.org/), then return a JSON response
 
-This is a simple application that requests its data from [OpenWeather](https://openweathermap.org/) and stores the result in a database. The current implementation has quite a few problems making it a non-production ready product.
+```
+{
+    "city": "Amsterdam",
+    "country": "NL",
+    "temperature": 290.00
+}
+```
 
-### The task
+#### Basic functionalities
 
-As the new engineer leading this project, your first task is to make it production-grade, feel free to refactor any piece
-necessary to achieve the goal.
+- Get Weather Info for a given City
 
-### How to deliver the code
+### Tech Stack :technologist:
 
-Please send an email containing your solution with a link to a public repository.
+- JAVA 17
+- Spring Boot
+- Caffeine Cache
+- MapStruct
+- Flyway
+- Postgres
+- Maven
+- JUnit5 + AssertJ + WireMock
+- Docker
 
->**DO NOT create a Pull Request with your solution** 
+### Running :rocket:
 
-### Footnote
-It's possible to generate the API key going to the [OpenWeather Sign up](https://openweathermap.org/appid) page.
+The application can be started using docker compose. For this follow the next steps:
+
+- build application
+```
+./mvnw clean verify
+```
+- set the environment variable WEATHER_API_KEY. This is needed because the OpenWeather requires an API Key.
+If you do not have yet, please generate the API key going to the [OpenWeather Sign up](https://openweathermap.org/appid) page.
+```
+export WEATHER_API_KEY=yourApiKey
+```
+- build and run
+```
+docker compose up --build
+```
+
+Done!
+
+Now you can get weather info from cities, for example:
+
+```
+curl --request GET 'localhost:8080/api/v1/weather/Amsterdam'
+```
+
+Enjoy! :runner:

@@ -8,6 +8,6 @@ spring:
 weather:
   api:
     url: "http://test/weather?q={city}&appid={appid}"
-    token: "myToken"
+    key: "myKey"
   cache:
     expireAfterWriteInSeconds: 1

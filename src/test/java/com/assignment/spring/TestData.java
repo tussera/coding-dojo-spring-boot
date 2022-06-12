@@ -7,10 +7,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 public class TestData {
 
@@ -30,7 +27,7 @@ public class TestData {
         return new WeatherResponse(CITY, COUNTRY, TEMPERATURE);
     }
 
-    public static WeatherExternalApiResponse generateJokesFromTestFile() {
+    public static WeatherExternalApiResponse generateWeatherResponseFromTestFile() {
         WeatherExternalApiResponse weatherExternalApiResponse;
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -45,14 +42,5 @@ public class TestData {
         }
 
         return weatherExternalApiResponse;
-    }
-
-    public static String getResponseAsString() {
-        ClassLoader classLoader = TestData.class.getClassLoader();
-        try {
-            return Files.readString(Paths.get(classLoader.getResource(WEATHER_RESPONSE_EXAMPLE_FILE_NAME).toURI()));
-        } catch (IOException | URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
     }
 }

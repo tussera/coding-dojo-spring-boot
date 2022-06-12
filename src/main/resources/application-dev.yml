@@ -20,6 +20,6 @@ spring:
 weather:
   api:
     url: "http://api.openweathermap.org/data/2.5/weather?q={city}&appid={appid}"
-    token: "1f22d69855855e0ff5c7e8114de4f393"
+    key: "YOUR_KEY"
   cache:
     expireAfterWriteInSeconds: 10

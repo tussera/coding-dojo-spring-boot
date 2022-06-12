@@ -2,6 +2,7 @@ package com.assignment.spring.controller;
 
 import com.assignment.spring.TestData;
 import com.assignment.spring.entity.WeatherEntity;
+import com.assignment.spring.exception.CityWeatherInfoNotFoundException;
 import com.assignment.spring.mapper.WeatherMapper;
 import com.assignment.spring.service.WeatherService;
 import org.junit.jupiter.api.DisplayName;
@@ -9,9 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.HttpStatus;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.client.HttpClientErrorException;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -38,7 +37,7 @@ class WeatherControllerTest {
         when(weatherService.getWeatherByCity(any())).thenReturn(expectedWeatherEntity);
         when(weatherMapper.entityToResponse(expectedWeatherEntity)).thenReturn(TestData.getWeatherResponseExample());
         // THEN
-        mockMvc.perform(get("/api/weather/" + expectedWeatherEntity.getCity()))
+        mockMvc.perform(get("/api/v1/weather/" + expectedWeatherEntity.getCity()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.city").value(expectedWeatherEntity.getCity()))
                 .andExpect(jsonPath("$.country").value(expectedWeatherEntity.getCountry()))
@@ -50,9 +49,9 @@ class WeatherControllerTest {
     void shouldReturnNotFoundWhenNoInfoFoundForGivenCity() throws Exception {
         // GIVEN
         when(weatherService.getWeatherByCity(any()))
-                .thenThrow(new HttpClientErrorException(HttpStatus.NOT_FOUND));
+                .thenThrow(CityWeatherInfoNotFoundException.class);
         // THEN
-        mockMvc.perform(get("/api/weather/" + TestData.CITY))
+        mockMvc.perform(get("/api/v1/weather/" + TestData.CITY))
                 .andExpect(status().isNotFound());
     }
 }
